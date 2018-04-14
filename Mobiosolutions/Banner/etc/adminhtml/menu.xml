@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Mobiosolutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>        
+        <add id="Mobiosolutions_Banner::index" title="Manage Banner" module="Mobiosolutions_Banner" sortOrder="10" action="banner/bannergrid/index" resource="Mobiosolutions_Banner::index"/>
+<!--AddMenu-->
+    </menu>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Mobiosolutions_Banner::css/jssor_slider.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Mobiosolutions\Banner\Block\Index\Banner" before='-' template="Mobiosolutions_Banner::index/banner.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

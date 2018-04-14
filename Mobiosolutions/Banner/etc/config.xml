@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <banner>
+            <configuration>
+                <active>1</active>
+                <active_cms>1</active_cms>
+                <active_category>1</active_category>
+                <slider_title>1</slider_title>
+                <effect>{$Duration:1200,x:0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2}</effect>
+                <full_width>0</full_width>
+                <duration>1200</duration>
+                <autoplay>1</autoplay>
+                <delay>20</delay>
+                <slider_arrow>1</slider_arrow>
+                <navigation>1</navigation>
+            </configuration>
+        </banner>
+    </default>
+</config>

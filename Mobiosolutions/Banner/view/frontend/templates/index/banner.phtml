@@ -1,0 +1,132 @@
+<?php
+/**
+ * Copyright © 2015 mscommerce. All rights reserved.
+ */
+?>
+<?php
+/**
+ * {{controller}} {{action}} template
+ *
+ * @var $block \Mobiosolutions\Banner\Block\Index\Banner
+ */
+$banners = $block->getBannerCollection();
+$effect = $block->getScopeConfugValue('banner/configuration/effect');
+$duration = $block->getScopeConfugValue('banner/configuration/duration');
+$autoPlay = $block->getScopeConfugValue('banner/configuration/autoplay');
+$navigation = $block->getScopeConfugValue('banner/configuration/navigation');
+$arrow = $block->getScopeConfugValue('banner/configuration/slider_arrow');
+$slider_title = $block->getScopeConfugValue('banner/configuration/slider_title');
+if (count($banners) > 0) {
+    ?>
+    <script type="text/javascript">
+        require(['jssor_slider'], function ($) {
+
+            jssor_1_slider_init = function () {
+                var jssor_1_SlideshowTransitions = [<?= $effect ?>];
+
+                var jssor_1_options = {
+                    $AutoPlay: <?= $autoPlay ?>,
+                    $SlideshowOptions: {
+                        $Class: $JssorSlideshowRunner$,
+                        $Transitions: jssor_1_SlideshowTransitions,
+                        $TransitionsOrder: 1
+                    },
+                    $ArrowNavigatorOptions: {
+                        $Class: $JssorArrowNavigator$
+                    },
+                    $BulletNavigatorOptions: {
+                        $Class: $JssorBulletNavigator$
+                    },
+                    $ThumbnailNavigatorOptions: {
+                        $Class: $JssorThumbnailNavigator$,
+                        $Cols: 1,
+                        $Align: 0,
+                        $NoDrag: true
+                    }
+                };
+
+                var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+                /*responsive code begin*/
+                /*remove responsive code if you don't want the slider scales while window resizing*/
+                function ScaleSlider() {
+                    var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+                    var div = '';
+                    var mainWidth = 0;
+                    if (jssor_1_slider.$Elmt.parentNode.id) {
+                        div = document.getElementById(jssor_1_slider.$Elmt.parentNode.id);
+                        mainWidth = refSize;
+                    } else {
+                        div = document.getElementsByClassName("columns")[0];
+                        mainWidth = parseInt(div.clientWidth);
+                    }
+                    var style = div.currentStyle || window.getComputedStyle(div);
+                    if (refSize) {
+                        var finalBannerWidth = mainWidth - (parseInt(style.paddingLeft.replace('px', '')) + parseInt(style.paddingRight.replace('px', '')));
+                        refSize = Math.min(refSize, finalBannerWidth);
+                        jssor_1_slider.$ScaleWidth(refSize);
+                    } else {
+                        window.setTimeout(ScaleSlider, 30);
+                    }
+                }
+                ScaleSlider();
+                $Jssor$.$AddEvent(window, "load", ScaleSlider);
+                $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+                $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+                /*responsive code end*/
+            };
+            jssor_1_slider_init();
+        });
+    </script>
+    <div id="jssor_1" style="position:relative;top:0px;left:0px;margin-bottom:10px;width:1240px;height:300px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" style="position:absolute;top:0px;left:0px;background-color:rgba(0,0,0,0.7);">
+            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+            <div style="position:absolute;display:block;background:url('<?php echo $this->getViewFileUrl('Mobiosolutions_Banner::images/loading.gif'); ?>') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+        </div>
+        <div id="slider_list" data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1240px;height:300px;overflow:hidden;">
+            <?php
+            foreach ($banners as $keys => $values) {
+                $ImageName = str_replace('/bannerslider/images', '', $values['banner_image']);
+                $imagePath = $block->getBannerPath() . $ImageName;
+                $link = $values['link'];
+                ?>
+                <div>
+                    <?php if ($link != "") { ?>
+                        <a href="<?= $link ?>" target="_blank">
+                        <?php } ?>
+                        <img data-u="image" alt="<?= $values['banner_name']; ?>" src="<?= $imagePath; ?>" />
+                        <?php if ($link != "") { ?>
+                        </a>
+                    <?php } ?>    
+                    <?php if ($slider_title) { ?>
+                        <div data-u="thumb"><?= $values['banner_name']; ?></div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+        </div>
+        <?php if ($slider_title) { ?>
+            <div data-u="thumbnavigator" class="jssort09-600-45" style="position:absolute;bottom:0px;left:0px;width:1240px;height:45px;">
+                <div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=40.0);opacity:0.4;"></div>
+                <div data-u="slides" style="cursor: default;">
+                    <div data-u="prototype" class="p">
+                        <div data-u="thumbnailtemplate" class="t"></div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if ($navigation) { ?>
+            <!-- Bullet Navigator -->
+            <div data-u="navigator" class="jssorb01" style="bottom:16px;right:16px;">
+                <div data-u="prototype" style="width:12px;height:12px;"></div>
+            </div>
+        <?php } ?>
+        <?php if ($arrow) { ?>
+            <!-- Arrow Navigator -->
+            <span data-u="arrowleft" class="jssora05l" style="top:0px;left:8px;width:40px;height:40px;" data-autocenter="2"></span>
+            <span data-u="arrowright" class="jssora05r" style="top:0px;right:8px;width:40px;height:40px;" data-autocenter="2"></span>
+        <?php } ?>
+    </div>
+    <?php
+}
+?>  
